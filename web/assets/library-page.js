@@ -1,12 +1,25 @@
 (function () {
   const { el, openPdf } = window.UI;
+  const boardId = window.boardParam();
+  const board = window.getBoard(boardId);
   let items = [];
   let part = "all";
   let type = "all";
   let group = "all";
   let search = "";
+  let loaded = false;
 
   const PART_LABEL = { "1": "Part I", "2": "Part II", A: "Advanced" };
+
+  document.title = "Library | " + board.full;
+  document.getElementById("eyebrow").textContent = board.full;
+
+  const tabs = document.getElementById("board-tabs");
+  if (tabs) {
+    tabs.innerHTML = Object.values(window.BOARDS).map((b) =>
+      `<a class="board-pill ${b.id === board.id ? "on" : ""}" href="library.html?board=${b.id}">
+         <span>${b.label}</span><small>${b.short}</small></a>`).join("");
+  }
 
   function card(it) {
     const c = el("article", "paper-card spot");
@@ -35,10 +48,11 @@
   function rebuildGroups() {
     const sel = document.getElementById("group");
     const current = sel.value;
-    const groups = [...new Set(items.filter((i) => part === "all" || String(i.part) === String(part)).map((i) => i.groupLabel))].sort();
-    sel.innerHTML = '<option value="all">All groups</option>' +
-      groups.map((g) => `<option value="${g}">${g}</option>`).join("");
-    if (groups.includes(current)) sel.value = current;
+    const names = [...new Set(items.filter((i) => part === "all" || String(i.part) === String(part)).map((i) => i.groupLabel))].sort();
+    const fallback = board.groups.map((g) => g.name).sort();
+    const list = names.length ? names : fallback;
+    sel.innerHTML = '<option value="all">All groups</option>' + list.map((g) => `<option value="${g}">${g}</option>`).join("");
+    if (list.includes(current)) sel.value = current;
     else group = "all";
   }
 
@@ -53,8 +67,16 @@
       return okPart && okType && okGroup && (!search || hay.includes(search));
     });
     list.slice(0, 400).forEach((it) => host.appendChild(card(it)));
-    document.getElementById("empty").hidden = list.length > 0;
+    document.getElementById("empty").hidden = list.length > 0 || !loaded;
     document.getElementById("count-chip").textContent = list.length + (list.length === 1 ? " paper" : " papers");
+
+    if (loaded && !items.length) {
+      host.innerHTML = `<div class="panel" style="grid-column:1/-1">
+        <h3>${board.label} files are not here yet</h3>
+        <p class="section-sub">The ${board.full} pack is still being built. Once the papers land in <code>files/biek/</code>, this page fills automatically.</p>
+        <a class="btn btn-small" href="groups.html?board=${board.id}">See the ${board.label} groups →</a>
+      </div>`;
+    }
     window.Premium && window.Premium.pointerFx();
   }
 
@@ -82,12 +104,11 @@
     render();
   });
 
-  fetch("/files/all/manifest.json").then((r) => r.json()).then((d) => {
-    items = d.items || [];
-    rebuildGroups();
-    render();
-  }).catch(() => {
-    document.getElementById("papers").innerHTML =
-      '<div class="panel"><h3>Could not load the library</h3><p class="section-sub">Refresh and try again.</p></div>';
-  });
+  rebuildGroups();
+  render();
+
+  fetch(board.manifest)
+    .then((r) => { if (!r.ok) throw new Error("no manifest"); return r.json(); })
+    .then((d) => { items = d.items || []; loaded = true; rebuildGroups(); render(); })
+    .catch(() => { loaded = true; render(); });
 })();

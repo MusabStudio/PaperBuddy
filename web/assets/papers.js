@@ -1,33 +1,31 @@
 (function () {
   const { el, openPdf } = window.UI;
   const q = new URLSearchParams(location.search);
+  const boardId = q.get("board") || "zueb";
+  const board = window.getBoard(boardId);
   const part = q.get("part") || "2";
   const group = q.get("group") || "Pre-Medical";
 
   let items = [];
   let type = "all";
   let search = "";
+  let loaded = false;
 
   const PART_LABEL = { "1": "Part I · Class XI", "2": "Part II · Class XII", A: "HSSC Advanced" };
-
-  function prettyGroup(g) {
-    return g.replace(/-/g, " ");
-  }
+  const prettyGroup = (g) => g.replace(/-/g, " ");
 
   function setHeader() {
-    document.getElementById("eyebrow").textContent = PART_LABEL[part] || "HSSC";
+    document.getElementById("eyebrow").textContent = board.full;
     document.getElementById("crumb").textContent = prettyGroup(group) + " · papers";
     document.getElementById("group-title").textContent = prettyGroup(group);
+    document.title = prettyGroup(group) + " | " + board.label;
+
+    const live = board.status === "live";
     document.getElementById("group-sub").innerHTML =
-      "Everything available for this group in " + (PART_LABEL[part] || "HSSC") +
-      ` · <a class="btn btn-small btn-gold" href="practice-any.html?part=${part}&group=${group}">✍️ Practice this group</a>`;
-    document.title = prettyGroup(group) + " | ZUEB Papers Hub";
-    const openClass = part === "1" || part === "2";
-    if (group === "Pre-Medical" && openClass) {
-      document.getElementById("group-sub").innerHTML =
-        'Everything for this group. <a href="class.html?part=' + part + '">Open the class area →</a>' +
-        ` · <a class="btn btn-small btn-gold" href="practice-any.html?part=${part}&group=${group}">✍️ Practice</a>`;
-    }
+      "Everything available for this group in " + (PART_LABEL[part] || "HSSC") + "." +
+      (live
+        ? ` · <a class="btn btn-small btn-gold" href="practice-any.html?board=${board.id}&part=${part}&group=${group}">✍️ Practice this group</a>`
+        : ' · <span class="state soon">papers pending</span>');
   }
 
   function card(it) {
@@ -64,8 +62,17 @@
       return okType && okSearch;
     });
     list.forEach((it) => host.appendChild(card(it)));
-    document.getElementById("empty").hidden = list.length > 0;
+    document.getElementById("empty").hidden = list.length > 0 || !loaded;
     document.getElementById("count-chip").textContent = list.length + (list.length === 1 ? " paper" : " papers");
+
+    if (loaded && !items.length) {
+      host.innerHTML = `<div class="panel" style="grid-column:1/-1">
+        <h3>No ${board.label} papers for this group yet</h3>
+        <p class="section-sub">The ${board.full} pack is still being built. Files will appear here automatically once they are added.</p>
+        <a class="btn btn-small" href="groups.html?board=${board.id}">Back to ${board.label} groups →</a>
+      </div>`;
+    }
+    window.Premium && window.Premium.pointerFx();
   }
 
   document.getElementById("search").addEventListener("input", (e) => {
@@ -81,18 +88,14 @@
   });
 
   setHeader();
-  fetch("/files/all/manifest.json")
-    .then((r) => r.json())
+  render();
+
+  fetch(board.manifest)
+    .then((r) => { if (!r.ok) throw new Error("no manifest"); return r.json(); })
     .then((d) => {
       items = (d.items || []).filter((it) => String(it.part) === String(part) && it.group === group);
-      if (!items.length) {
-        document.getElementById("group-sub").textContent = "No files found for this group yet.";
-      }
+      loaded = true;
       render();
-      window.Premium && window.Premium.pointerFx();
     })
-    .catch(() => {
-      document.getElementById("papers").innerHTML =
-        '<div class="panel"><h3>Could not load the paper list</h3><p class="section-sub">Refresh the page and try again.</p></div>';
-    });
+    .catch(() => { loaded = true; render(); });
 })();

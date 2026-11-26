@@ -43,17 +43,18 @@
   </section>
 
   <main>
-    <section class="section" style="padding-top:28px">
+    <section class="section" style="padding-top:22px">
+      <div class="board-switch" id="board-switch"></div>
+    </section>
+
+    <section class="section" style="padding-top:0">
       <div class="feature3d" id="feature" data-tilt>
         <div class="glare"></div>
         <div class="feature-copy">
-          <span class="state live" data-depth="26">LIVE NOW</span>
-          <h2 data-depth="34">Pre-Medical</h2>
-          <p data-depth="20">Physics &middot; Chemistry &middot; Biology &middot; English &middot; Urdu &middot; Islamiyat &middot; Pakistan Studies</p>
-          <div class="row" data-depth="40">
-            <a class="btn btn-gold shine" href="class.html?part=1">Part I &middot; Class XI</a>
-            <a class="btn btn-gold shine" href="class.html?part=2">Part II &middot; Class XII</a>
-          </div>
+          <span class="state live" data-depth="26" data-feature-state>LIVE NOW</span>
+          <h2 data-depth="34" data-feature-name>Pre-Medical</h2>
+          <p data-depth="20" data-feature-sub>Physics · Chemistry · Biology</p>
+          <div class="row" data-depth="40" data-feature-rows></div>
         </div>
         <div class="feature-art" data-depth="60">
           <div class="art-card">🩺</div>
@@ -89,6 +90,7 @@
   </footer>
 
   <script src="assets/library.js"></script>
+  <script src="assets/boards.js"></script>
   <script src="assets/site.js"></script>
   <script src="assets/glass.js"></script>
   <script src="assets/widget.js"></script>

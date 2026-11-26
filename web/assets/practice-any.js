@@ -3,6 +3,8 @@
   const q = new URLSearchParams(location.search);
   const part = q.get("part") || "2";
   const group = q.get("group") || "Pre-Medical";
+  const boardId = q.get("board") || "zueb";
+  const board = window.getBoard ? window.getBoard(boardId) : null;
   let subject = q.get("subject") || "";
   const PART = { "1": "Part I · Class XI", "2": "Part II · Class XII", A: "HSSC Advanced" };
 
@@ -31,7 +33,8 @@
   const pretty = (s) => s.replace(/-/g, " ");
 
   function subjectList() {
-    const base = ELECTIVES[group] || [];
+    const known = board && board.groups.find((g) => g.folder === group || g.name === group);
+    const base = known ? known.subjects : (ELECTIVES[group] || []);
     return [...new Set([...base, ...COMPULSORY])];
   }
 
@@ -43,7 +46,7 @@
     host.innerHTML = "";
     subjectList().forEach((s) => {
       const a = el("a", "subject");
-      a.href = `practice-any.html?part=${part}&group=${group}&subject=${encodeURIComponent(s)}`;
+      a.href = `practice-any.html?board=${boardId}&part=${part}&group=${group}&subject=${encodeURIComponent(s)}`;
       a.innerHTML = `<div class="top"><div class="ico">✍️</div><div><h4>${s}</h4><div class="meta">10 MCQs + 4 written</div></div></div>`;
       host.appendChild(a);
     });
@@ -148,7 +151,7 @@
     $("board").hidden = true;
     $("picker").hidden = true;
     try {
-      data = await api("/generate", { method: "POST", body: JSON.stringify({ part, group, subject }) });
+      data = await api("/generate", { method: "POST", body: JSON.stringify({ part, group, subject, board: boardId }) });
       $("loading").hidden = true;
       renderSet();
       updateChip();

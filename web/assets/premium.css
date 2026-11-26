@@ -553,3 +553,35 @@ body { animation: pageIn .32s ease-out; }
   .promo-card { grid-template-columns: 1fr; padding: 24px; }
   .promo-badges { justify-items: start; }
 }
+
+
+/* board switch */
+.board-switch, .board-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+.board-pill {
+  display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+  padding: 10px 16px; border-radius: 14px; border: 1px solid var(--line); background: #fff;
+  color: var(--navy); font-weight: 600; font-size: 14px; box-shadow: 0 6px 16px rgba(11,37,69,.06);
+  transition: transform .2s, border-color .2s, box-shadow .2s;
+}
+.board-pill small { font-size: 11px; color: var(--muted); font-weight: 500; }
+.board-pill:hover { transform: translateY(-2px); border-color: var(--gold); box-shadow: 0 12px 24px rgba(11,37,69,.12); }
+.board-pill.on { border-color: var(--gold); background: linear-gradient(135deg, #fff, #fff7e6); }
+
+
+/* board cards on home */
+.board-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+.board-card {
+  display: block; text-decoration: none; color: inherit; background: #fff;
+  border: 1px solid var(--line); border-radius: 22px; padding: 22px;
+  box-shadow: 0 10px 24px rgba(11,37,69,.07); transition: transform .22s, box-shadow .22s, border-color .22s;
+}
+.board-card:hover { transform: translateY(-5px); box-shadow: 0 22px 44px rgba(11,37,69,.15); border-color: var(--gold); }
+.board-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.board-logo {
+  width: 44px; height: 44px; border-radius: 13px; display: grid; place-items: center;
+  background: linear-gradient(135deg, #ffb703, #fb8500); color: var(--navy); font-weight: 800; font-size: 20px;
+}
+.board-logo.biek { background: linear-gradient(135deg, #2ec4b6, #1d9b90); color: #fff; }
+.board-card h3 { margin: 0 0 2px; font-family: "Baloo 2", sans-serif; font-size: 22px; color: var(--navy); }
+.board-card p { margin: 0 0 14px; font-size: 13px; color: var(--muted); }
+.board-link { font-weight: 700; color: var(--gold-2); font-size: 14px; }
