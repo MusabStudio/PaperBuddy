@@ -105,6 +105,10 @@ npx wrangler dev
 
 ---
 
+## Accounts required
+
+Every page, PDF and manifest is gated by the Worker: without a session you are redirected to `/account?next=…`. Only `/account`, `/admin` and `/assets/*` are public. Direct links to a PDF return `401` instead of the file.
+
 ## Admin panel
 
 `/admin.html` is a key-protected dashboard: registrations, last login, attempts, answers, and who has never practised. Export to CSV from the page.
