@@ -396,6 +396,59 @@ async function handleApi(req, env, url) {
   const path = url.pathname.replace(/^\/api/, "");
   const method = req.method;
 
+  if (path === "/admin/overview" && method === "POST") {
+    const body = await req.json().catch(() => ({}));
+    const given = req.headers.get("x-admin-key") || body.key || "";
+    if (!env.ADMIN_KEY || given !== env.ADMIN_KEY) return bad("Wrong admin key.", 401);
+
+    const users = await env.DB.prepare(
+      "SELECT id, name, email, created_at, last_login FROM users ORDER BY created_at DESC LIMIT 1000"
+    ).all();
+    const attempts = await env.DB.prepare(
+      "SELECT user_id, COUNT(*) AS c, MAX(created_at) AS last, SUM(answered) AS answered FROM attempts GROUP BY user_id"
+    ).all();
+
+    const amap = {};
+    for (const a of attempts.results || []) amap[a.user_id] = a;
+
+    const now = Date.now();
+    const day = 864e5;
+    const rows = (users.results || []).map((u) => {
+      const a = amap[u.id] || {};
+      return {
+        name: u.name,
+        email: u.email,
+        joined: u.created_at,
+        lastLogin: u.last_login || 0,
+        attempts: a.c || 0,
+        answers: a.answered || 0,
+        lastAttempt: a.last || 0,
+        status: !a.c ? "registered, never practised" : (a.last > now - 7 * day ? "active" : "inactive"),
+      };
+    });
+
+    const signups = {};
+    for (const u of users.results || []) {
+      const d = new Date(u.created_at).toISOString().slice(0, 10);
+      signups[d] = (signups[d] || 0) + 1;
+    }
+
+    return json({
+      stats: {
+        users: rows.length,
+        newToday: (users.results || []).filter((u) => u.created_at > now - day).length,
+        new7d: (users.results || []).filter((u) => u.created_at > now - 7 * day).length,
+        active7d: (attempts.results || []).filter((a) => a.last > now - 7 * day).length,
+        neverPractised: rows.filter((r) => r.attempts === 0).length,
+        attempts: (attempts.results || []).reduce((n, a) => n + a.c, 0),
+        answers: (attempts.results || []).reduce((n, a) => n + (a.answered || 0), 0),
+      },
+      signups,
+      users: rows,
+      generatedAt: now,
+    });
+  }
+
   if (path === "/capabilities" && method === "GET") {
     return json({ ai: !!env.REFLECTION_API_KEY, vision: false, model: AI_MODEL });
   }
@@ -440,8 +493,8 @@ async function handleApi(req, env, url) {
     const pw = await hashPassword(String(password), salt);
     const id = crypto.randomUUID();
     await env.DB.prepare(
-      "INSERT INTO users (id, name, email, pw, salt, created_at) VALUES (?,?,?,?,?,?)"
-    ).bind(id, String(name).slice(0, 40), mail, pw, salt, Date.now()).run();
+      "INSERT INTO users (id, name, email, pw, salt, created_at, last_login) VALUES (?,?,?,?,?,?,?)"
+    ).bind(id, String(name).slice(0, 40), mail, pw, salt, Date.now(), Date.now()).run();
     const token = crypto.randomUUID() + hex(crypto.getRandomValues(new Uint8Array(16)));
     await env.DB.prepare("INSERT INTO sessions (token, user_id, expires_at) VALUES (?,?,?)")
       .bind(token, id, Date.now() + 30 * 864e5).run();
@@ -458,6 +511,7 @@ async function handleApi(req, env, url) {
     const token = crypto.randomUUID() + hex(crypto.getRandomValues(new Uint8Array(16)));
     await env.DB.prepare("INSERT INTO sessions (token, user_id, expires_at) VALUES (?,?,?)")
       .bind(token, user.id, Date.now() + 30 * 864e5).run();
+    await env.DB.prepare("UPDATE users SET last_login = ? WHERE id = ?").bind(Date.now(), user.id).run();
     return json({ ok: true, name: user.name }, 200, { "set-cookie": sessionCookie(token) });
   }
 

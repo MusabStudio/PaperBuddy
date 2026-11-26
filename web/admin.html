@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | PaperBuddy</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/app2.css">
+  <link rel="stylesheet" href="assets/premium.css">
+  <style>
+    .admin-wrap { max-width: 1100px; margin: 0 auto; }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 22px; }
+    .stat-card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
+    .stat-card span { font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+    .stat-card strong { display: block; font-family: "Baloo 2", sans-serif; font-size: 28px; color: var(--navy); line-height: 1.1; }
+    .admin-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .admin-table th, .admin-table td { text-align: left; padding: 10px; border-bottom: 1px solid #eef2f9; }
+    .admin-table th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .4px; color: var(--muted); }
+    .admin-table tr:hover td { background: #fafcff; }
+    .tag { font-size: 11px; padding: 3px 8px; border-radius: 999px; font-weight: 600; white-space: nowrap; }
+    .tag.active { background: #d9f7f2; color: #0d7a6f; }
+    .tag.inactive { background: #fff1c9; color: #8a5a00; }
+    .tag.never { background: #fdecec; color: #a11; }
+    .gate { max-width: 420px; margin: 60px auto; background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 24px; }
+    .table-wrap { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 6px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="logo">Z</span>
+      <div><div class="brand-title">PaperBuddy</div><div class="brand-sub">Admin</div></div>
+    </a>
+    <nav><a href="index.html">Back to site</a></nav>
+  </header>
+
+  <main style="padding:26px 16px 60px">
+    <div class="admin-wrap">
+      <section class="gate" id="gate">
+        <h2 style="margin:0 0 6px;color:var(--navy)">Admin key</h2>
+        <p class="section-sub" style="margin-top:0">Paste the key to see registrations and activity.</p>
+        <input id="key" type="password" placeholder="Admin key" style="width:100%;padding:12px;border:2px solid #e7ecf6;border-radius:12px;font:inherit;margin-bottom:10px">
+        <button class="btn btn-gold" id="unlock" type="button" style="width:100%">Unlock</button>
+        <p class="form-msg err" id="err"></p>
+      </section>
+
+      <section id="panel" hidden>
+        <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px">
+          <div>
+            <span class="chip">Admin</span>
+            <h2 style="margin:6px 0 0;color:var(--navy);font-family:'Baloo 2',sans-serif">Overview</h2>
+            <p class="section-sub" id="stamp" style="margin:2px 0 0"></p>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn-small" id="refresh" type="button">↻ Refresh</button>
+            <button class="btn btn-small" id="csv" type="button">⬇️ CSV</button>
+            <button class="btn btn-small" id="lock" type="button">Lock</button>
+          </div>
+        </div>
+
+        <div class="stat-grid" id="stats"></div>
+
+        <div class="filters" style="margin-bottom:12px">
+          <input id="search" placeholder="Search name or email" style="flex:1;min-width:220px;padding:10px 14px;border:1px solid var(--line);border-radius:999px;font:inherit">
+          <div class="tabs" style="margin:0">
+            <button data-f="all" class="on" type="button">All</button>
+            <button data-f="active" type="button">Active</button>
+            <button data-f="never" type="button">Never practised</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Last login</th><th>Attempts</th><th>Answers</th><th>Last attempt</th><th>Status</th></tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="assets/site.js"></script>
+  <script src="assets/admin.js"></script>
+</body>
+</html>

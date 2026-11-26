@@ -105,6 +105,16 @@ npx wrangler dev
 
 ---
 
+## Admin panel
+
+`/admin.html` is a key-protected dashboard: registrations, last login, attempts, answers, and who has never practised. Export to CSV from the page.
+
+```bash
+npx wrangler secret put ADMIN_KEY   # any long random string
+```
+
+Open `/admin.html`, paste the key. It is stored in `sessionStorage` only, and the API rejects anything without the header.
+
 ## Deploy
 
 ```bash
