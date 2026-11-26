@@ -46,7 +46,10 @@
   async function load() {
     try {
       const me = await API("/me");
-      if (!me.user) { location.href = "account.html?next=flashcards.html%3Fpaper%3D" + encodeURIComponent(paperId || ""); return; }
+      if (!me.user) {
+        window.UI.lockPanel(document.querySelector(".deck-wrap"), "Sign in for flashcards", "Browsing is free. Cards, shuffling and progress need an account.");
+        return;
+      }
     } catch {
       location.href = "account.html?next=flashcards.html";
       return;
@@ -64,7 +67,7 @@
       $("deck-title").textContent = (meta ? meta.emoji + " " + meta.name : "Deck") + " · " + deck.length + " cards";
       draw();
     } catch (e) {
-      if (e.status === 401) { location.href = "account.html?next=flashcards.html%3Fpaper%3D" + encodeURIComponent(paperId); return; }
+      if (e.status === 401) { window.UI.lockPanel(document.querySelector(".deck-wrap"), "Sign in for flashcards", "Session expired. Sign in again to keep revising."); return; }
       $("deck").innerHTML = `<div class="panel"><h3>Could not load cards</h3><p class="section-sub">${e.message}</p></div>`;
     }
   }

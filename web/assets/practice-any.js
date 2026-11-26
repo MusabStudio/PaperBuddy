@@ -169,7 +169,7 @@
     try {
       const me = await api("/me");
       if (!me.user) {
-        location.replace("account.html?next=" + encodeURIComponent(location.pathname.split("/").pop() + location.search));
+        window.UI.lockPanel(document.querySelector(".gen-wrap"), "Sign in to practise", "Free account. The AI writes a fresh paper for you and checks each answer.");
         return;
       }
     } catch { return; }

@@ -289,7 +289,7 @@
       .then(() => fetch("/api/paper/" + encodeURIComponent(paperId)))
       .then((r) => {
         if (r.status === 401) {
-          location.replace("account.html?next=" + encodeURIComponent("practice.html?paper=" + paperId));
+          window.UI.lockPanel($("questions"), "Sign in to practise", "Browsing is free. An account checks your answers and saves your score.");
           throw new Error("signin");
         }
         if (!r.ok) throw new Error("Paper not found");

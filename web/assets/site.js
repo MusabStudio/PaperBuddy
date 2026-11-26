@@ -66,6 +66,10 @@
     return viewer;
   }
   function openPdf(url, title) {
+    if (!window.AUTH.user) {
+      gateModal("Sign in to open this paper", "Browsing and covers are free. An account opens the full PDF.");
+      return;
+    }
     const v = ensureViewer();
     v.querySelector("#viewer-title").textContent = "📄 " + (title || "Paper");
     v.querySelector("#viewer-open").href = url;
@@ -82,11 +86,63 @@
   }
 
   /* nav + auth pill */
+  window.AUTH = { user: null, checked: false };
+
+  function lockPanel(host, title, note) {
+    if (!host) return;
+    const next = encodeURIComponent(location.pathname + location.search);
+    host.innerHTML = `<div class="lock-panel">
+      <div class="ico">🔒</div>
+      <h3>${title}</h3>
+      <p>${note}</p>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        <a class="btn btn-gold shine" href="account.html?next=${next}&mode=signup">Create free account</a>
+        <a class="btn" href="account.html?next=${next}">Sign in</a>
+      </div>
+    </div>`;
+  }
+
+  function gateModal(title, note) {
+    let m = document.getElementById("auth-gate");
+    if (!m) {
+      m = el("div", "gate-modal");
+      m.id = "auth-gate";
+      m.innerHTML = `
+        <div class="gate-box">
+          <div class="gate-ico">🔒</div>
+          <h3 id="gate-title"></h3>
+          <p id="gate-note"></p>
+          <div class="gate-actions">
+            <a class="btn btn-gold shine" id="gate-signup">Create free account</a>
+            <a class="btn" id="gate-signin">Sign in</a>
+          </div>
+          <button class="gate-close" type="button" aria-label="Close">✕</button>
+          <div class="gate-small">Free, takes 20 seconds. Your scores and badges are saved.</div>
+        </div>`;
+      document.body.appendChild(m);
+      m.addEventListener("click", (e) => { if (e.target === m) closeGate(); });
+      m.querySelector(".gate-close").onclick = closeGate;
+    }
+    const next = encodeURIComponent(location.pathname + location.search);
+    m.querySelector("#gate-signup").href = "account.html?next=" + next + "&mode=signup";
+    m.querySelector("#gate-signin").href = "account.html?next=" + next;
+    m.querySelector("#gate-title").textContent = title || "Sign in to continue";
+    m.querySelector("#gate-note").textContent = note || "Browsing is free. An account unlocks papers, practice and chat.";
+    m.classList.add("show");
+  }
+
+  function closeGate() {
+    const m = document.getElementById("auth-gate");
+    if (m) m.classList.remove("show");
+  }
+
   async function paintAuth() {
     const slot = document.getElementById("auth-slot");
     if (!slot) return;
     try {
       const { user } = await api("/me");
+      window.AUTH.user = user || null;
+      window.AUTH.checked = true;
       if (user) {
         slot.innerHTML = "";
         const a = el("a", "auth-pill", `<span class="avatar">${user.name[0].toUpperCase()}</span><span>${user.name}</span>`);
@@ -159,6 +215,25 @@
     paintAuth();
     reveal();
     scrollUi();
+
+    // copying text from papers/gallery needs an account
+    document.addEventListener("copy", (e) => {
+      if (window.AUTH.user) return;
+      const zone = e.target.closest && e.target.closest(".paper-card, .photo3d, .qbox, .card, .field-card");
+      if (zone) {
+        e.preventDefault();
+        gateModal("Sign in to copy", "Reading is free. Copying paper text needs an account.");
+      }
+    }, true);
+
+    // downloads need an account
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest && e.target.closest("a[download]");
+      if (a && !window.AUTH.user) {
+        e.preventDefault();
+        gateModal("Sign in to download", "You can browse everything. Downloads and practice are for members.");
+      }
+    }, true);
   });
 
   function esc(str) {
@@ -178,5 +253,5 @@
     return s;
   }
 
-  window.UI = { el, toast, api, openPdf, closeViewer, paintAuth, md };
+  window.UI = { el, toast, api, openPdf, closeViewer, paintAuth, md, gateModal, lockPanel };
 })();

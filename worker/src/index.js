@@ -699,30 +699,25 @@ Keep answers short, correct and exam-focused. If asked about your maker, reply e
 }
 
 
-const PUBLIC_PAGES = new Set(["/account", "/account.html", "/admin", "/admin.html"]);
-const PUBLIC_PREFIXES = ["/assets/", "/favicon", "/robots.txt"];
-
 async function gate(req, env, url) {
   const path = url.pathname;
-  if (PUBLIC_PAGES.has(path)) return null;
-  if (PUBLIC_PREFIXES.some((p) => path.startsWith(p))) return null;
 
-  const user = await currentUser(req, env);
-  if (user) return null;
+  if (path.startsWith("/assets/")) return null;
+  if (path === "/favicon.ico" || path === "/robots.txt") return null;
+  if (path.endsWith(".json") || path.includes("/thumbs/")) return null;
+  if (path === "/account" || path === "/account.html") return null;
+  if (path === "/admin" || path === "/admin.html") return null;
 
-  const hasExt = /\.[a-z0-9]+$/i.test(path);
-  const isPage = path === "/" || !hasExt || path.endsWith(".html");
-  if (isPage) {
-    const next = encodeURIComponent(path + url.search);
-    return new Response(null, {
-      status: 302,
-      headers: { location: "/account?next=" + next, "cache-control": "no-store" },
+  if (/\.(pdf|docx)$/i.test(path)) {
+    const user = await currentUser(req, env);
+    if (user) return null;
+    return new Response("Sign in to open this paper.", {
+      status: 401,
+      headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store" },
     });
   }
-  return new Response("Sign in required. Open /account.html to create an account.", {
-    status: 401,
-    headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store" },
-  });
+
+  return null;
 }
 
 export default {

@@ -91,7 +91,12 @@
     } catch (e) {
       t.remove();
       if (e.status === 401) {
-        location.href = "account.html?next=" + encodeURIComponent(location.pathname.split("/").pop() + location.search);
+        bubble("bot", "Sign in to chat — it is free and takes 20 seconds.");
+        const box = document.createElement("div");
+        box.className = "ai-cta";
+        box.innerHTML = '<a class="btn btn-small btn-gold" href="account.html?next=' +
+          encodeURIComponent(location.pathname.split("/").pop() + location.search) + '">Sign in</a>';
+        log.appendChild(box);
         return;
       }
       bubble("bot", e.message || "Could not reach the helper. Try again.");

@@ -46,7 +46,7 @@
     try {
       const me = await API("/me");
       if (!me.user) {
-        location.href = "account.html?next=chat.html";
+        window.UI.lockPanel(document.querySelector(".chat-shell"), "Sign in to chat", "Ask anything about your subjects. Free account, no limits.");
         return;
       }
       add("sys", `Signed in as ${me.user.name}. Ask your first question.`);
@@ -73,7 +73,7 @@
       history.push({ role: "assistant", content: data.reply || "" });
     } catch (e) {
       t.remove();
-      if (e.status === 401) { location.href = "account.html?next=chat.html"; return; }
+      if (e.status === 401) { window.UI.lockPanel(document.querySelector(".chat-shell"), "Sign in to chat", "Your session expired. Sign in again to keep asking."); return; }
       add("bot", e.message || "Could not reach the helper. Try again.");
     }
   }
