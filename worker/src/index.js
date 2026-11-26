@@ -115,13 +115,13 @@ function computeBadges(attempts) {
   const list = [];
   const add = (id, label, icon, desc) => list.push({ id, label, icon, desc });
   const n = attempts.length;
-  if (n >= 1) add("first", "First Steps", "ðŸŒ±", "Saved your first attempt");
-  if (n >= 5) add("warm", "Warmed Up", "ðŸ”¥", "Five attempts saved");
-  if (n >= 15) add("grind", "Grinder", "âš™ï¸", "Fifteen attempts saved");
-  if (attempts.some((a) => a.total > 0 && a.score / a.total >= 0.7)) add("sharp", "Sharp Shooter", "ðŸŽ¯", "Scored 70% or more");
-  if (attempts.some((a) => a.total > 0 && a.score / a.total >= 0.85)) add("topper", "Topper", "ðŸ†", "Scored 85% or more");
+  if (n >= 1) add("first", "First Steps", "🌱", "Saved your first attempt");
+  if (n >= 5) add("warm", "Warmed Up", "🔥", "Five attempts saved");
+  if (n >= 15) add("grind", "Grinder", "⚙️", "Fifteen attempts saved");
+  if (attempts.some((a) => a.total > 0 && a.score / a.total >= 0.7)) add("sharp", "Sharp Shooter", "🎯", "Scored 70% or more");
+  if (attempts.some((a) => a.total > 0 && a.score / a.total >= 0.85)) add("topper", "Topper", "🏆", "Scored 85% or more");
   const papers = new Set(attempts.map((a) => a.paper));
-  if (papers.size >= 3) add("allround", "All-Rounder", "ðŸ§ ", "Practised three different papers");
+  if (papers.size >= 3) add("allround", "All-Rounder", "🧠", "Practised three different papers");
   const byPaper = {};
   for (const a of attempts) {
     (byPaper[a.paper] ||= []).push(a);
@@ -130,24 +130,24 @@ function computeBadges(attempts) {
     if (arr.length >= 3) {
       const avg = arr.reduce((s, a) => s + (a.total ? a.score / a.total : 0), 0) / arr.length;
       if (avg >= 0.75) {
-        add("star-" + pid, "Subject Star", "â­", `Averaged 75%+ in ${PAPERS[pid]?.subject || pid}`);
+        add("star-" + pid, "Subject Star", "⭐", `Averaged 75%+ in ${PAPERS[pid]?.subject || pid}`);
         break;
       }
     }
   }
   const parts = new Set(attempts.map((a) => PAPERS[a.paper]?.part).filter(Boolean));
-  if (parts.size === 2) add("bothparts", "Both Parts", "ðŸŽ“", "Practised Part I and Part II");
+  if (parts.size === 2) add("bothparts", "Both Parts", "🎓", "Practised Part I and Part II");
 
   const totalAnswered = attempts.reduce((n, a) => n + (a.answered || 0), 0);
-  if (totalAnswered >= 10) add("rookie", "Answer Rookie", "âœï¸", "Checked 10 answers");
-  if (totalAnswered >= 50) add("century", "Half Century", "ðŸ", "Checked 50 answers");
-  if (attempts.some((a) => a.qcount > 0 && a.answered / a.qcount >= 0.5)) add("halfway", "Halfway There", "ðŸŒ—", "Finished half of a paper");
-  if (attempts.some((a) => a.qcount > 0 && a.answered >= a.qcount)) add("complete", "Paper Complete", "âœ…", "Answered every question in a paper");
+  if (totalAnswered >= 10) add("rookie", "Answer Rookie", "✍️", "Checked 10 answers");
+  if (totalAnswered >= 50) add("century", "Half Century", "🏏", "Checked 50 answers");
+  if (attempts.some((a) => a.qcount > 0 && a.answered / a.qcount >= 0.5)) add("halfway", "Halfway There", "🌗", "Finished half of a paper");
+  if (attempts.some((a) => a.qcount > 0 && a.answered >= a.qcount)) add("complete", "Paper Complete", "✅", "Answered every question in a paper");
   if (attempts.some((a) => a.qcount > 0 && a.answered >= a.qcount && a.total > 0 && a.score / a.total >= 0.75)) {
-    add("cleared", "Subject Cleared", "ðŸŽ–ï¸", "Completed a paper with 75%+");
+    add("cleared", "Subject Cleared", "🎖️", "Completed a paper with 75%+");
   }
   if (attempts.some((a) => a.qcount > 0 && a.answered >= a.qcount && a.total > 0 && a.score / a.total >= 0.9)) {
-    add("distinction", "Distinction", "ðŸ‘‘", "Completed a paper with 90%+");
+    add("distinction", "Distinction", "👑", "Completed a paper with 90%+");
   }
   return list;
 }
