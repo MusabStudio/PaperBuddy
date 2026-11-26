@@ -222,6 +222,23 @@
     setTimeout(step, 300);
   });
 
+  const share = document.getElementById("share-btn");
+  if (share) {
+    share.onclick = async () => {
+      const url = "https://paperbuddy.zylino.workers.dev";
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: "PaperBuddy", text: "HSSC papers + AI practice", url });
+        } else {
+          await navigator.clipboard.writeText(url);
+          window.UI.toast("Link copied!");
+        }
+      } catch {
+        window.UI.toast("Link: " + url);
+      }
+    };
+  }
+
   // refresh pointer effects for dynamically added cards
   window.Premium && window.Premium.pointerFx();
 })();

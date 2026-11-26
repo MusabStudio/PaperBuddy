@@ -109,6 +109,21 @@ npx wrangler dev
 
 Every page, PDF and manifest is gated by the Worker: without a session you are redirected to `/account?next=…`. Only `/account`, `/admin` and `/assets/*` are public. Direct links to a PDF return `401` instead of the file.
 
+## Deploy from GitHub
+
+Push to `main` and the workflow in `.github/workflows/deploy.yml` ships it to Cloudflare.
+
+Add these repository secrets (**Settings → Secrets and variables → Actions**):
+
+| Secret | Value |
+|---|---|
+| `CLOUDFLARE_API_TOKEN` | Token with *Workers Scripts: Edit* and *D1: Edit* |
+| `CLOUDFLARE_ACCOUNT_ID` | Your account ID |
+| `D1_DATABASE_ID` | The D1 database UUID |
+| `REFLECTION_API_KEY` | Optional — enables AI grading and chat |
+
+Until those exist, deploy manually with `npx wrangler deploy`.
+
 ## Admin panel
 
 `/admin.html` is a key-protected dashboard: registrations, last login, attempts, answers, and who has never practised. Export to CSV from the page.
