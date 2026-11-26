@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Papers | ZUEB Papers Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/app2.css">
+  <link rel="stylesheet" href="assets/widget.css">
+  <link rel="stylesheet" href="assets/premium.css">
+  <link rel="stylesheet" href="assets/glass.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="logo">Z</span>
+      <div><div class="brand-title">ZUEB Papers Hub</div><div class="brand-sub" id="crumb">All papers</div></div>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="groups.html">Groups</a>
+      <a href="library.html">Library</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="class.html?part=2">Class Area</a>
+      <a href="practice.html">Practice</a>
+      <a href="flashcards.html">Flashcards</a>
+      <a href="chat.html">Chat</a>
+      <span id="auth-slot"></span>
+    </nav>
+  </header>
+
+  <section class="hero small">
+    <div class="hero-inner">
+      <p class="eyebrow" id="eyebrow">HSSC</p>
+      <h1 id="title">All papers</h1>
+      <p class="lead" id="sub">Model papers and guess papers, ready to view or download.</p>
+      <div class="search-wrap"><input id="search" type="search" placeholder="Search a subject…" autocomplete="off"></div>
+    </div>
+  </section>
+
+  <main>
+    <section class="section" style="padding-top:30px">
+      <div class="section-head reveal" style="display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap">
+        <div>
+          <span class="chip" id="count-chip">0 papers</span>
+          <h2 id="group-title" class="shimmer">Browse</h2>
+          <p class="section-sub" id="group-sub"></p>
+        </div>
+        <div class="tabs" style="margin:0">
+          <button data-type="all" class="on" type="button">All</button>
+          <button data-type="model" type="button">Model</button>
+          <button data-type="guess" type="button">Guess</button>
+        </div>
+      </div>
+      <div class="paper-grid" id="papers"></div>
+      <p class="empty" id="empty" hidden>No paper matches that filter.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Model papers are official ZUEB documents. Guess papers are practice material.</p>
+    <p class="good">Good luck! 🍀</p>
+  </footer>
+
+  <script src="assets/library.js"></script>
+  <script src="assets/site.js"></script>
+  <script src="assets/glass.js"></script>
+  <script src="assets/widget.js"></script>
+  <script src="assets/premium.js"></script>
+  <script src="assets/papers.js"></script>
+</body>
+</html>

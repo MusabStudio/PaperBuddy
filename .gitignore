@@ -1,0 +1,22 @@
+node_modules/
+.wrangler/
+.dev.vars
+*.log
+
+# generated / copyrighted papers (see README)
+web/files/all/
+web/files/thumbs/
+web/files/model/
+web/files/guess/
+web/files/part1/
+
+# local secrets
+deploy.cmd
+retry.ps1
+login.txt
+.env
+.env.*
+
+# os
+.DS_Store
+Thumbs.db

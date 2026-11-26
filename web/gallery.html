@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Gallery | ZUEB Papers Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/app2.css">
+  <link rel="stylesheet" href="assets/widget.css">
+  <link rel="stylesheet" href="assets/premium.css">
+  <link rel="stylesheet" href="assets/glass.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="logo">Z</span>
+      <div><div class="brand-title">ZUEB Papers Hub</div><div class="brand-sub">3D gallery</div></div>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="groups.html">Groups</a>
+      <a href="class.html?part=2">Class Area</a>
+      <a href="practice.html">Practice</a>
+      <a href="library.html">Library</a>
+      <a href="gallery.html" class="active">Gallery</a>
+      <a href="chat.html">Chat</a>
+      <span id="auth-slot"></span>
+    </nav>
+  </header>
+
+  <section class="hero small">
+    <div class="hero-inner">
+      <p class="eyebrow">Every model paper</p>
+      <h1>The <span class="hl">gallery</span></h1>
+      <p class="lead">Tilt, glare and real first pages. Click any cover to open the full paper.</p>
+      <div class="search-wrap"><input id="search" type="search" placeholder="Search subject or group…" autocomplete="off"></div>
+    </div>
+  </section>
+
+  <main>
+    <section class="section" style="padding-top:26px">
+      <div class="section-head reveal" style="display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap">
+        <div>
+          <span class="chip" id="count-chip">0 covers</span>
+          <h2>All covers</h2>
+        </div>
+        <div class="tabs" style="margin:0">
+          <button data-part="all" class="on" type="button">All</button>
+          <button data-part="1" type="button">Part I</button>
+          <button data-part="2" type="button">Part II</button>
+          <button data-part="A" type="button">Advanced</button>
+        </div>
+      </div>
+      <div class="gallery" id="gallery"></div>
+      <p class="empty" id="empty" hidden>No cover matches that search.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Model papers are official ZUEB documents.</p>
+    <p class="good">Good luck! 🍀</p>
+  </footer>
+
+  <script src="assets/library.js"></script>
+  <script src="assets/site.js"></script>
+  <script src="assets/glass.js"></script>
+  <script src="assets/widget.js"></script>
+  <script src="assets/premium.js"></script>
+  <script src="assets/gallery.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library | ZUEB Papers Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/app2.css">
+  <link rel="stylesheet" href="assets/widget.css">
+  <link rel="stylesheet" href="assets/premium.css">
+  <link rel="stylesheet" href="assets/glass.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="logo">Z</span>
+      <div><div class="brand-title">ZUEB Papers Hub</div><div class="brand-sub">Library</div></div>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="groups.html">Groups</a>
+      <a href="class.html?part=2">Class Area</a>
+      <a href="practice.html">Practice</a>
+      <a href="library.html" class="active">Library</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="chat.html">Chat</a>
+      <span id="auth-slot"></span>
+    </nav>
+  </header>
+
+  <section class="hero small">
+    <div class="hero-inner">
+      <p class="eyebrow" id="eyebrow">Everything in one place</p>
+      <h1>The <span class="hl">library</span></h1>
+      <p class="lead">Every model paper and guess paper, filterable by part, group and subject.</p>
+      <div class="search-wrap"><input id="search" type="search" placeholder="Search subject, group or part…" autocomplete="off"></div>
+    </div>
+  </section>
+
+  <main>
+    <section class="section" style="padding-top:26px">
+      <div class="filters">
+        <div class="tabs" style="margin:0">
+          <button data-part="all" class="on" type="button">All</button>
+          <button data-part="1" type="button">Part I</button>
+          <button data-part="2" type="button">Part II</button>
+          <button data-part="A" type="button">Advanced</button>
+        </div>
+        <div class="tabs" style="margin:0">
+          <button data-type="all" class="on" type="button">All types</button>
+          <button data-type="model" type="button">Model</button>
+          <button data-type="guess" type="button">Guess</button>
+        </div>
+        <select id="group" aria-label="Group">
+          <option value="all">All groups</option>
+        </select>
+      </div>
+
+      <div class="section-head" style="margin-top:18px">
+        <span class="chip" id="count-chip">0 papers</span>
+      </div>
+      <div class="paper-grid" id="papers"></div>
+      <p class="empty" id="empty" hidden>Nothing matches those filters.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Model papers are official ZUEB documents. Guess papers are practice material.</p>
+    <p class="good">Good luck! 🍀</p>
+  </footer>
+
+  <script src="assets/library.js"></script>
+  <script src="assets/site.js"></script>
+  <script src="assets/glass.js"></script>
+  <script src="assets/widget.js"></script>
+  <script src="assets/premium.js"></script>
+  <script src="assets/library-page.js"></script>
+</body>
+</html>

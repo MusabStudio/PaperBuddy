@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "paperbuddy",
+  "main": "worker/src/index.js",
+  "compatibility_date": "2026-11-23",
+  "observability": { "enabled": true },
+  "assets": {
+    "directory": "./web",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "paperbuddy-db",
+      "database_id": "REPLACE_WITH_YOUR_D1_ID"
+    }
+  ]
+}

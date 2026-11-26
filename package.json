@@ -1,0 +1,26 @@
+{
+  "name": "paperbuddy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "HSSC study hub: model papers, guess papers, flashcards and AI-checked practice.",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:local": "wrangler d1 execute paperbuddy-db --local --file=worker/schema.sql",
+    "db:remote": "wrangler d1 execute paperbuddy-db --remote --file=worker/schema.sql",
+    "assets": "python scripts/build_manifest.py && python scripts/build_gallery.py"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  },
+  "keywords": [
+    "hssc",
+    "zueb",
+    "past-papers",
+    "education",
+    "cloudflare-workers",
+    "d1"
+  ],
+  "license": "MIT"
+}

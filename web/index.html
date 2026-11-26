@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZUEB Papers Hub | HSSC Pre-Medical</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/app2.css">
+  <link rel="stylesheet" href="assets/widget.css">
+  <link rel="stylesheet" href="assets/premium.css">
+  <link rel="stylesheet" href="assets/glass.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="logo">Z</span>
+      <div>
+        <div class="brand-title">ZUEB Papers Hub</div>
+        <div class="brand-sub">HSSC &middot; Pre-Medical</div>
+      </div>
+    </a>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="class.html?part=2">Class Area</a>
+      <a href="practice.html">Practice</a>
+      <a href="flashcards.html">Flashcards</a>
+      <a href="chat.html">Chat</a>
+      <a href="#library">Papers</a>
+      <span id="auth-slot"></span>
+    </nav>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+    <div class="hero-inner">
+      <p class="eyebrow reveal">Ziauddin University Examination Board</p>
+      <h1 class="reveal"><span class="wave">Good luck</span> <span class="hl">for your paper!</span> <span class="wave">🍀</span></h1>
+      <p class="lead reveal" id="quote">You've got this. Every page you revise is a step closer.</p>
+      <div class="hero-cta reveal">
+        <a class="btn btn-gold btn-big shine magnetic" href="class.html?part=2">Enter class area</a>
+        <a class="btn btn-ghost btn-big magnetic" href="practice.html">Practise answers</a>
+      </div>
+      <div class="stats reveal">
+        <div><strong data-count="11">0</strong><span>Subjects</span></div>
+        <div><strong data-count="340">0</strong><span>Practice questions</span></div>
+        <div><strong data-count="5">0</strong><span>Years checked</span></div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="section" id="classes">
+      <div class="section-head reveal">
+        <span class="chip">Start here</span>
+        <h2>Choose your class</h2>
+        <p>Everything is sorted by exam part, then by subject.</p>
+      </div>
+      <div class="class-cards">
+        <a class="class-card p1 reveal" href="class.html?part=1">
+          <div class="big">①</div>
+          <h3>HSSC Part I</h3>
+          <p>Class XI &middot; Physics, Chemistry, Biology, English, Urdu, Islamiyat</p>
+          <span class="go">Open class area →</span>
+        </a>
+        <a class="class-card p2 reveal" href="class.html?part=2">
+          <div class="big">②</div>
+          <h3>HSSC Part II</h3>
+          <p>Class XII &middot; Physics, Chemistry, Biology, English, Urdu</p>
+          <span class="go">Open class area →</span>
+        </a>
+      </div>
+    </section>
+
+
+    <section class="section" id="groups">
+      <div class="section-head reveal">
+        <span class="chip">All groups</span>
+        <h2>Every field, both parts</h2>
+        <p>Seven groups across Part I and Part II. All groups are ready — model papers and guess papers for both parts.</p>
+      </div>
+      <div class="teaser3d reveal" data-tilt>
+        <div class="glare"></div>
+        <div class="teaser-items" data-depth="26">
+          <div class="teaser-item"><span>🩺</span><strong>Pre-Medical</strong><small>Live</small></div>
+          <div class="teaser-item"><span>📐</span><strong>Pre-Engineering</strong><small>Live</small></div>
+          <div class="teaser-item"><span>🔬</span><strong>General Science</strong><small>Live</small></div>
+          <div class="teaser-item"><span>📊</span><strong>Commerce</strong><small>Live</small></div>
+          <div class="teaser-item"><span>📚</span><strong>Humanities</strong><small>Live</small></div>
+          <div class="teaser-item"><span>🧫</span><strong>Medical Technology</strong><small>Live</small></div>
+          <div class="teaser-item"><span>💉</span><strong>Pre-Nursing</strong><small>Live</small></div>
+        </div>
+        <a class="btn btn-gold shine teaser-cta" data-depth="34" href="groups.html">Explore all groups →</a>
+      </div>
+    </section>
+
+    <section class="section" id="gallery">
+      <div class="section-head reveal">
+        <span class="chip chip-gold">3D gallery</span>
+        <h2>Peek at the papers</h2>
+        <p>Move your mouse over a card &mdash; it tilts in 3D. Click to open the full paper.</p>
+      </div>
+      <div class="gallery" id="gallery-grid"></div>
+      <div style="text-align:center;margin-top:26px">
+        <a class="btn btn-gold shine" href="gallery.html">Open the full gallery →</a>
+      </div>
+    </section>
+
+    <section class="section alt" id="inside">
+      <div class="section-head reveal">
+        <span class="chip chip-green">Inside the practice area</span>
+        <h2>Question counts</h2>
+        <p>Every subject has 20 MCQs plus short and detailed questions, up to 50 per paper.</p>
+      </div>
+      <div class="split">
+        <div class="chart-wrap">
+          <h4 style="margin:0 0 6px;color:var(--navy)">Part II</h4>
+          <div class="echart" id="chart-p2"></div>
+          <div class="chart" data-chart="2" hidden></div>
+        </div>
+        <div class="chart-wrap">
+          <h4 style="margin:0 0 6px;color:var(--navy)">Part I</h4>
+          <div class="echart" id="chart-p1"></div>
+          <div class="chart" data-chart="1" hidden></div>
+        </div>
+      </div>
+      <p class="section-sub" style="margin-top:10px;font-size:12px">Charts by Apache ECharts. Animations by anime.js.</p>
+    </section>
+
+    <section class="section alt" id="library">
+      <div class="section-head reveal">
+        <span class="chip chip-grey">Library</span>
+        <h2>All papers</h2>
+        <p>Model papers are official ZUEB documents. Guess papers are practice material.</p>
+      </div>
+      <div class="grid" id="featured"></div>
+      <div style="text-align:center;margin-top:26px">
+        <a class="btn btn-gold shine btn-big" href="library.html">Explore all papers →</a>
+      </div>
+    </section>
+
+    <section class="section" id="years">
+      <div class="section-head reveal">
+        <span class="chip chip-grey">Archive</span>
+        <h2>Past papers by year</h2>
+        <p>No official HSSC Pre-Medical past papers for these years were found online.</p>
+      </div>
+      <div class="years" id="year-grid"></div>
+    </section>
+
+    <section class="section alt" id="report">
+      <div class="section-head reveal">
+        <span class="chip chip-green">Research</span>
+        <h2>Research report</h2>
+        <p>Sources, verification status and missing papers.</p>
+      </div>
+      <div class="grid" id="report-grid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Practice material only. Not affiliated with ZUEB. Check the official board website for current information.</p>
+    <p class="good">Good luck! 🍀</p>
+    <p class="credits">3D tilt cards after React Bits &middot; buttons after Kokonut UI &middot; layout inspired by Watermelon UI &middot; charts by Apache ECharts &middot; motion by anime.js</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js" defer></script>
+  <script src="assets/library.js"></script>
+  <script src="assets/site.js"></script>
+  <script src="assets/glass.js"></script>
+  <script src="assets/widget.js"></script>
+  <script src="assets/home.js"></script>
+  <script src="assets/premium.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile | ZUEB Papers Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/app2.css">
+  <link rel="stylesheet" href="assets/glass.css">
+  <link rel="stylesheet" href="assets/widget.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="logo">Z</span>
+      <div><div class="brand-title">ZUEB Papers Hub</div><div class="brand-sub">HSSC &middot; Pre-Medical</div></div>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="groups.html">Groups</a>
+      <a href="library.html">Library</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="class.html?part=2">Class Area</a>
+      <a href="practice.html">Practice</a>
+      <a href="flashcards.html">Flashcards</a>
+      <a href="chat.html">Chat</a>
+      <a href="index.html#library">Papers</a>
+      <span id="auth-slot"></span>
+    </nav>
+  </header>
+
+  <section class="hero small">
+    <div class="blob b1"></div><div class="blob b3"></div>
+    <div class="hero-inner">
+      <p class="eyebrow">Your progress</p>
+      <h1>My <span class="hl">profile</span></h1>
+      <p class="lead">Save your practice scores, collect badges, and track every subject.</p>
+    </div>
+  </section>
+
+  <main>
+    <section class="section" id="guest" hidden>
+      <div class="auth-wrap">
+        <div class="panel">
+          <h3>Sign in</h3>
+          <form id="login-form">
+            <div class="field"><label for="li-email">Email</label><input id="li-email" type="email" autocomplete="email" required></div>
+            <div class="field"><label for="li-pass">Password</label><input id="li-pass" type="password" autocomplete="current-password" required></div>
+            <button class="btn btn-gold" type="submit" style="width:100%">Sign in</button>
+            <div class="form-msg" id="li-msg"></div>
+          </form>
+        </div>
+        <div class="panel">
+          <h3>Create an account</h3>
+          <form id="signup-form">
+            <div class="field"><label for="su-name">Display name</label><input id="su-name" maxlength="40" autocomplete="nickname" required></div>
+            <div class="field"><label for="su-email">Email</label><input id="su-email" type="email" autocomplete="email" required></div>
+            <div class="field"><label for="su-pass">Password (6+ characters)</label><input id="su-pass" type="password" minlength="6" autocomplete="new-password" required></div>
+            <button class="btn btn-green" type="submit" style="width:100%">Create account</button>
+            <div class="form-msg" id="su-msg"></div>
+          </form>
+          <p class="section-sub" style="margin-top:10px;font-size:12px">Every account has its own profile, scores and badges. We store only your name, email and a password hash.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="profile" hidden>
+      <div class="split">
+        <div class="panel">
+          <div class="profile-head">
+            <div class="bigav" id="p-avatar">M</div>
+            <div><h3 id="p-name">—</h3><p id="p-email">—</p></div>
+          </div>
+          <div class="stat" style="display:flex;justify-content:space-between;padding:8px 0;border-top:1px dashed #e7ecf6">
+            <span>Attempts saved</span><strong id="p-attempts">0</strong>
+          </div>
+          <div class="stat" style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #e7ecf6">
+            <span>Subjects practised</span><strong id="p-papers">0</strong>
+          </div>
+          <div class="stat" style="display:flex;justify-content:space-between;padding:8px 0">
+            <span>Best score</span><strong id="p-best">0%</strong>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+            <a class="btn btn-gold" href="practice.html">✍️ Practise now</a>
+            <button class="btn" id="logout" type="button">Log out</button>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Badges</h3>
+          <div class="badge-grid" id="badges"></div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:20px">
+        <h3>Recent attempts</h3>
+        <table class="history">
+          <thead><tr><th>Paper</th><th>Score</th><th>When</th></tr></thead>
+          <tbody id="history"></tbody>
+        </table>
+        <p class="section-sub" id="no-history" hidden>No attempts yet. Head to the practice area and check a few answers.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Practice material only. Not affiliated with ZUEB.</p>
+    <p class="good">Good luck! 🍀</p>
+  </footer>
+
+  <script src="assets/library.js"></script>
+  <script src="assets/site.js"></script>
+  <script src="assets/glass.js"></script>
+  <script src="assets/widget.js"></script>
+  <script src="assets/account.js"></script>
+</body>
+</html>

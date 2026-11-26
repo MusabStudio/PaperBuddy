@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practice Area | ZUEB Papers Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/app2.css">
+  <link rel="stylesheet" href="assets/widget.css">
+  <link rel="stylesheet" href="assets/premium.css">
+  <link rel="stylesheet" href="assets/glass.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="logo">Z</span>
+      <div><div class="brand-title">ZUEB Papers Hub</div><div class="brand-sub">HSSC &middot; Pre-Medical</div></div>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="groups.html">Groups</a>
+      <a href="library.html">Library</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="class.html?part=2">Class Area</a>
+      <a href="practice.html" class="active">Practice</a>
+      <a href="flashcards.html">Flashcards</a>
+      <a href="chat.html">Chat</a>
+      <a href="index.html#library">Papers</a>
+      <span id="auth-slot"></span>
+    </nav>
+  </header>
+
+  <section class="hero small">
+    <div class="blob b1"></div><div class="blob b3"></div>
+    <div class="hero-inner">
+      <p class="eyebrow" id="crumb">Work area</p>
+      <h1 id="paper-title">Choose a subject</h1>
+      <p class="lead" id="paper-sub">Answer in the boxes, then get each answer checked. Urdu answers can be written on paper and photographed.</p>
+    </div>
+  </section>
+
+  <main>
+    <div class="practice-wrap">
+      <aside class="side" id="side">
+        <div class="ring-wrap">
+          <div class="ring" id="ring"><span id="ring-num">0%</span></div>
+          <div class="ring-cap">of the paper answered</div>
+        </div>
+        <div class="mini-bar"><i id="mini-bar"></i></div>
+        <h4>Your progress</h4>
+        <div class="stat"><span>Checked</span><strong id="st-checked">0</strong></div>
+        <div class="stat"><span>Accuracy</span><strong id="st-acc">—</strong></div>
+        <div class="stat"><span>Score</span><strong id="st-score">0 / 0</strong></div>
+        <div class="stat"><span>Questions</span><strong id="st-count">—</strong></div>
+        <button class="btn btn-gold" id="save-btn" type="button" style="width:100%;margin-top:12px">💾 Save attempt</button>
+        <p class="section-sub" id="save-note" style="margin-top:8px;font-size:12px"></p>
+        <hr style="border:0;border-top:1px dashed #e7ecf6;margin:12px 0">
+        <h4>Switch subject</h4>
+        <div id="switch" style="display:grid;gap:6px"></div>
+      </aside>
+
+      <div id="questions">
+        <div class="panel">
+          <h3>Pick a subject to begin</h3>
+          <p class="section-sub">Each set follows the model-paper layout: Section A MCQs, then short and detailed questions.</p>
+          <div class="grid" id="picker" style="margin-top:14px"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Practice material only. Answers are checked by a rubric-based system, with AI when available.</p>
+    <p class="good">Good luck! 🍀</p>
+  </footer>
+
+  <script src="assets/library.js"></script>
+  <script src="assets/site.js"></script>
+  <script src="assets/glass.js"></script>
+  <script src="assets/widget.js"></script>
+  <script src="assets/practice.js"></script>
+</body>
+</html>
