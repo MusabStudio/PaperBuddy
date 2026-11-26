@@ -214,13 +214,43 @@
       setTimeout(() => { i = (i + 1) % QUOTES.length; q.textContent = QUOTES[i]; q.style.opacity = 1; }, 400);
     }, 4500);
   }
-  document.querySelectorAll("[data-count]").forEach((n) => {
-    const target = +n.dataset.count;
-    if (reduce) { n.textContent = target; return; }
+  /* live stats: real counts from both boards */
+  function countUp(el, target) {
+    if (!el) return;
+    if (reduce || target < 10) { el.textContent = target; return; }
     let v = 0;
-    const step = () => { v = Math.min(target, v + Math.ceil(target / 40)); n.textContent = v; if (v < target) requestAnimationFrame(step); };
-    setTimeout(step, 300);
-  });
+    const step = () => {
+      v = Math.min(target, v + Math.ceil(target / 30));
+      el.textContent = v;
+      if (v < target) requestAnimationFrame(step);
+    };
+    step();
+  }
+
+  async function stats() {
+    const load = (u) => fetch(u).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    const [z, b, api] = await Promise.all([
+      load("/files/all/manifest.json"),
+      load("/files/biek/manifest.json"),
+      load("/api/papers"),
+    ]);
+
+    const isPaper = (i) => ["pdf", "docx"].includes(i.ext);
+    const zp = (z?.items || []).filter(isPaper);
+    const bp = (b?.items || []).filter(isPaper);
+    const practiceSets =
+      (b?.items || []).filter((i) => i.type === "practice").length +
+      (api?.papers ? api.papers.length : 0);
+
+    const subjects = new Set();
+    zp.forEach((i) => subjects.add("z:" + i.subjectLabel));
+    bp.forEach((i) => subjects.add("b:" + i.subjectLabel));
+
+    countUp(document.getElementById("stat-papers"), zp.length + bp.length);
+    countUp(document.getElementById("stat-subjects"), subjects.size);
+    countUp(document.getElementById("stat-practice"), practiceSets);
+  }
+  stats();
 
   const share = document.getElementById("share-btn");
   if (share) {
