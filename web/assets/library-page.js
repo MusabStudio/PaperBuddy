@@ -1,4 +1,5 @@
 (function () {
+const TYPE_LABEL = { model: "MODEL", guess: "GUESS", past: "PAST", practice: "PRACTICE" };
   const { el, openPdf } = window.UI;
   const boardId = window.boardParam();
   const board = window.getBoard(boardId);
@@ -25,13 +26,19 @@
     const c = el("article", "paper-card spot");
     c.innerHTML = `
       <div class="pc-top">
-        <span class="badge ${it.type}">${it.type === "model" ? "MODEL" : "GUESS"}</span>
+        <span class="badge ${it.type}">${TYPE_LABEL[it.type] || "PAPER"}</span>
         <span class="pc-size">${it.sizeKB} KB</span>
       </div>
       <h4>${it.subjectLabel}</h4>
-      <p>${it.groupLabel} · ${PART_LABEL[it.part] || ""} · ${it.ext.toUpperCase()}</p>
+      <p>${it.groupLabel} · ${PART_LABEL[it.part] || ""}${it.year ? " · " + it.year : ""} · ${it.ext.toUpperCase()}</p>
       <div class="actions"></div>`;
     const actions = c.querySelector(".actions");
+    if (it.type === "practice") {
+      const pr = el("a", "btn btn-small btn-gold shine", "✍️ Practise");
+      pr.href = "practice-set.html?file=" + encodeURIComponent(it.file) + "&subject=" + encodeURIComponent(it.subjectLabel);
+      actions.appendChild(pr);
+      return c;
+    }
     if (it.ext === "pdf") {
       const v = el("button", "btn btn-small btn-gold shine", "👀 View");
       v.type = "button";

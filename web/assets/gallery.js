@@ -19,9 +19,9 @@
     const c = el("figure", "photo3d");
     c.setAttribute("data-tilt", "");
     c.innerHTML = `
-      <img loading="lazy" src="${it.thumb}" alt="${it.subject} ${it.groupLabel} cover">
+      <img loading="lazy" src="${it.thumb}" alt="${it.label || it.subject} cover">
       <div class="glare"></div>
-      <span class="label" data-depth="46">${it.subject}</span>`;
+      <span class="label" data-depth="46">${it.label || it.subject}</span>`;
     c.onclick = () => openPdf(it.file, it.subject + " · " + it.groupLabel);
     return c;
   }

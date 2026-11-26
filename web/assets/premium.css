@@ -618,3 +618,6 @@ body { animation: pageIn .32s ease-out; }
 .lock-panel .ico { font-size: 40px; }
 .lock-panel h3 { margin: 10px 0 6px; font-family: "Baloo 2", sans-serif; color: var(--navy); font-size: 24px; }
 .lock-panel p { color: var(--muted); margin: 0 0 18px; font-size: 14px; }
+/* extra badge types */
+.badge.past { background:#e8efff; color:#274b8f; }
+.badge.practice { background:#e7f8ee; color:#0d6b3f; }

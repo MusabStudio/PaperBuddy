@@ -1,4 +1,5 @@
 (function () {
+const TYPE_LABEL = { model: "MODEL", guess: "GUESS", past: "PAST", practice: "PRACTICE" };
   const { el, openPdf } = window.UI;
   const q = new URLSearchParams(location.search);
   const boardId = q.get("board") || "zueb";
@@ -33,11 +34,11 @@
     const isDocx = it.ext === "docx";
     c.innerHTML = `
       <div class="pc-top">
-        <span class="badge ${it.type}">${it.type === "model" ? "MODEL" : "GUESS"}</span>
+        <span class="badge ${it.type}">${TYPE_LABEL[it.type] || "PAPER"}</span>
         <span class="pc-size">${it.sizeKB} KB</span>
       </div>
       <h4>${it.subjectLabel}</h4>
-      <p>${it.ext.toUpperCase()} · ${PART_LABEL[it.part] || ""}</p>
+      <p>${it.ext.toUpperCase()} · ${PART_LABEL[it.part] || ""}${it.year ? " · " + it.year : ""}</p>
       <div class="actions"></div>`;
     const actions = c.querySelector(".actions");
     if (!isDocx) {

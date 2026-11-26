@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practice Set | PaperBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/app2.css">
+  <link rel="stylesheet" href="assets/widget.css">
+  <link rel="stylesheet" href="assets/premium.css">
+  <link rel="stylesheet" href="assets/glass.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="logo">Z</span>
+      <div><div class="brand-title">PaperBuddy</div><div class="brand-sub">Practice set</div></div>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="groups.html">Groups</a>
+      <a href="library.html">Library</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="practice.html">Practice</a>
+      <a href="chat.html">Chat</a>
+      <span id="auth-slot"></span>
+    </nav>
+  </header>
+
+  <section class="hero small">
+    <div class="hero-inner">
+      <p class="eyebrow" id="crumb">Practice</p>
+      <h1 id="title">Practice set</h1>
+      <p class="lead" id="sub">Answer each question, then check it.</p>
+    </div>
+  </section>
+
+  <main>
+    <div style="max-width:900px;margin:0 auto">
+      <div class="section-head" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <span class="chip chip-gold" id="chip">0 checked</span>
+        <a class="btn btn-small" href="library.html" id="back">← Back to library</a>
+      </div>
+      <div id="questions"></div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Practice material. Not an official board paper.</p>
+    <p class="good">Good luck! 🍀</p>
+  </footer>
+
+  <script src="assets/library.js"></script>
+  <script src="assets/site.js"></script>
+  <script src="assets/glass.js"></script>
+  <script src="assets/widget.js"></script>
+  <script src="assets/premium.js"></script>
+  <script src="assets/practice-set.js"></script>
+</body>
+</html>

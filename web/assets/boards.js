@@ -26,18 +26,18 @@ window.BOARDS = {
     label: "Sindh Board",
     short: "BIEK",
     full: "Board of Intermediate Education Karachi",
-    status: "pending",
+    status: "live",
     manifest: "/files/biek/manifest.json",
     gallery: "/files/biek/gallery.json",
     groups: [
-      { name: "Pre-Medical", folder: "Pre-Medical", emoji: "🩺", subjects: ["Physics", "Chemistry", "Biology"] },
+      { name: "Pre-Medical", folder: "Pre-Medical", emoji: "🩺", subjects: ["Physics", "Chemistry", "Botany", "Zoology"] },
       { name: "Pre-Engineering", folder: "Pre-Engineering", emoji: "📐", subjects: ["Physics", "Chemistry", "Mathematics"] },
-      { name: "General Science", folder: "General-Science", emoji: "🔬", subjects: ["Physics", "Chemistry", "Mathematics"] },
-      { name: "Computer Science", folder: "Computer-Science", emoji: "💻", subjects: ["Physics", "Computer Science", "Mathematics"] },
-      { name: "Commerce", folder: "Commerce", emoji: "📊", subjects: ["Accounting", "Business Mathematics", "Economics", "Commerce", "Banking", "Commercial Geography"] },
-      { name: "Humanities", folder: "Humanities", emoji: "📚", subjects: ["Islamic Studies", "Civics", "Education", "Sociology", "Economics", "Psychology"] },
-      { name: "Home Economics", folder: "Home-Economics", emoji: "🏠", subjects: ["Home Economics", "Food & Nutrition", "Clothing & Textiles"] },
-      { name: "Compulsory", folder: "Compulsory", emoji: "📘", subjects: ["English", "Urdu Normal", "Urdu Easy", "Islamiyat (Part I)", "Pakistan Studies (Part II)", "Sindhi"] }
+      { name: "General Science", folder: "General-Science", emoji: "🔬", subjects: ["Physics", "Mathematics", "Computer Science", "Economics"] },
+      { name: "Computer Science", folder: "Computer-Science", emoji: "💻", subjects: ["Physics", "Mathematics", "Computer Science"] },
+      { name: "Commerce", folder: "Commerce", emoji: "📊", subjects: ["Accounting", "Business Mathematics", "Principles of Commerce", "Principles of Economics"] },
+      { name: "Humanities", folder: "Humanities", emoji: "📚", subjects: ["Mathematics", "Computer Science", "Economics"] },
+      { name: "Home Economics", folder: "Home-Economics", emoji: "🏠", subjects: ["Home Economics", "Food & Nutrition"] },
+      { name: "Compulsory", folder: "Compulsory", emoji: "📘", subjects: ["English Normal", "Urdu Normal", "Urdu Easy", "Islamic Education", "Sindhi"] }
     ]
   }
 };
